@@ -17,11 +17,14 @@ import eventsim.EventSim;
  */
 public class EndShoppingEvent extends Event {
     Customer customer;
+    Checkout checkout;
 
 
-    public EndShoppingEvent(Customer customer) {
-        super(EventSim.getClock() + customer.shoppingDuration);
+    public EndShoppingEvent(Customer customer, Checkout checkout) {
+        super(customer.leaveTime);
         this.customer = customer;
+        this.checkout = checkout;
+        checkout.queue.poll();
     }
 
 
@@ -34,8 +37,8 @@ public class EndShoppingEvent extends Event {
 
     @Override
     public String toString() {
-        return "EndShoppingEvent{" + getTime() + " cust=" + customer.name
-                + " " + customer.shoppingDuration + '}';
+        return "EndShoppingEvent {Current time is " + getTime() + ". (" + customer.name
+                + ") has stood in line for " + customer.queueWaitDuration + " time. It took " + customer.checkoutDuration + " time for checkout}";
     }
 
 }

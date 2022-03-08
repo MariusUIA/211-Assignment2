@@ -23,9 +23,9 @@ public class SuperMarket {
     }
 
     public static final int NUM_CHECKOUTS = 1;
-    public static final int NUM_CUSTOMERS = 4;
+    public static final int NUM_CUSTOMERS = 50;
 
-    Checkout[] checkouts;
+    static Checkout[] checkouts;
     List<Customer> customers;
     List<Event> init;
 
@@ -48,5 +48,21 @@ public class SuperMarket {
         EventSim sim = EventSim.getInstance();
         sim.setup(init);
         sim.run();
+        int timeQueueTotal = 0;
+        int timeQueueAverage;
+
+        for (Customer customerValue:customers){
+            timeQueueTotal += customerValue.queueWaitDuration;
+        }
+
+        timeQueueAverage = timeQueueTotal / customers.size();
+
+
+        System.out.println("Average queue time was " + timeQueueAverage);
+        System.out.println("Total queue time was " + timeQueueTotal);
+    }
+
+    public static Checkout[] getCheckouts(){
+        return checkouts;
     }
 }

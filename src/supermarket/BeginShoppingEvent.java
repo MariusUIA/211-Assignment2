@@ -25,6 +25,12 @@ public class BeginShoppingEvent extends Event {
 
     @Override
     public Event happen() {
-        return new EndShoppingEvent(customer);
+        return new StartQueueEvent(customer);
+    }
+
+    @Override
+    public String toString() {
+        return "BeginShoppingEvent {Current time is " + getTime() + ". (" + customer.name
+                + ") has shopped for a duration of " + customer.shoppingDuration + " time}";
     }
 }
